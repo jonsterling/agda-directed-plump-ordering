@@ -1,0 +1,5 @@
+name: plump-ordinals
+depend: standard-library
+include:
+  .
+  src
