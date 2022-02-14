@@ -1,4 +1,4 @@
-name: plump-ordinals
+name: directed-plump-ordering
 depend: standard-library
 include:
   .
