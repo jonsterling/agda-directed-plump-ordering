@@ -15,15 +15,15 @@ record JoinStructure {l k} (𝒰 : RegularUniverse l) (𝒞 : Container k) : Set
 
 
 -- In addition to a container 𝒞, this module should be parameterized
--- over an arbitrary regular universe 𝒰 which parameterizes the size
--- of joins we are considering, as well as a join structure
--- parameterized in 𝒞 for 𝒞. We instead make the latter two
--- assumptions postulates instead of parameters in order to enable
--- Agda's REWRITE mechanism.
+-- in a join structure for 𝒞. We instead make this assumption into a
+-- postulates in order to enable Agda's REWRITE mechanism.
 
 module Ordinals (𝒞 : Container zero) where
+
+  -- We open the regular universe of non-empty lists
   open 𝔽+
 
+  -- Think of this as a parameter
   postulate
     𝒞/join : JoinStructure 𝔽+.𝒰 𝒞
 
@@ -227,8 +227,5 @@ module Ordinals (𝒞 : Container zero) where
     ≺-wf u = ≺-wf-lemma u (`unit ▷ λ _ → u) (R-wf _) (≤/lub-unit/r u)
 
 
-  -- This we prove on paper.
-  postulate
-    ⊏-wf : is-wf _⊏_
-
-  open ≺-wf _⊏_ ⊏-wf (λ ws b h → make (fst ∘ b [_]) λ i → make _ (snd (b [ i ]))) public
+  ≺-wf : is-wf _⊏_ → is-wf _≺_
+  ≺-wf ⊏-wf = ≺-wf.≺-wf _⊏_ ⊏-wf λ ws b x → make (fst ∘ b [_]) λ i → make _ (snd (b [ i ]))
